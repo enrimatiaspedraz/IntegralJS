@@ -61,8 +61,21 @@ const preciofinal = () => {
     }
     const values = Object.values(verificacion)
     const submit = values.every(value => value)
-    submit  ? alert ("SU COMPRA HA SIDO EXITOSA!!!") 
-            : alert("Existen campos incompletos")
+    submit  ? Swal.fire({
+      position: 'center',
+      icon: 'success',
+      title: ("SU COMPRA HA SIDO EXITOSA!!!"),
+      showConfirmButton: false,
+      timer: 2000
+    }) 
+            :Swal.fire({
+              icon: 'error',
+              title: 'Oops...',
+              text: ("Existen campos incompletos"),
+             
+            }) 
+            
+            
 
          
   }
