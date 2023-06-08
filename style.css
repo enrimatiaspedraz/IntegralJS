@@ -21,14 +21,14 @@
 
 .navbar-nav a{
     color: white;
-    transition-duration: .4s;
+    transition-duration: 3s;
    
 
 }
 .navbar-nav a:hover{
-    color: brown;
-    transform: scale(1.1);
-    transition-duration: (.4s);
+    color: white;
+    transform: scale(1.2);
+    transition-duration: .4s
 }
 
 .none{
@@ -48,7 +48,7 @@ footer a {
 
 footer a:hover{
     transform: scale(1.5);
-    color: brown;
+    color: white;
     transition-duration: .3s;
 
 }

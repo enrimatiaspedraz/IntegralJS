@@ -157,14 +157,44 @@ const preciofinal = () => {
 
 
 
+//CAJA1
+let cambiocolor = document.getElementById("paraprueba")
 
+cambiocolor.addEventListener("mouseover" , function() {
+  this.style.backgroundColor = "#d9f3fc";
+})
 
+let cambiocolorout = document.getElementById("paraprueba")
 
+cambiocolorout.addEventListener("mouseout" , function() {
+  this.style.backgroundColor = "white";
+})
 
+//CAJA2
 
+let cambiocolor2 = document.getElementById("paraprueba2")
 
+cambiocolor2.addEventListener("mouseover" , function() {
+  this.style.backgroundColor = "#aaacb1";
+})
 
+let cambiocolorout2 = document.getElementById("paraprueba2")
 
+cambiocolorout2.addEventListener("mouseout" , function() {
+  this.style.backgroundColor = "white";
+})
 
+//CAJA3
 
+let cambiocolor3 = document.getElementById("paraprueba3")
+
+cambiocolor3.addEventListener("mouseover" , function() {
+  this.style.backgroundColor = "#d6b003";
+})
+
+let cambiocolorout3 = document.getElementById("paraprueba3")
+
+cambiocolorout3.addEventListener("mouseout" , function() {
+  this.style.backgroundColor = "white";
+})
 
