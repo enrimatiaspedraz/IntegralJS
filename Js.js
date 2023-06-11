@@ -7,6 +7,7 @@ const montoAPagar = document.getElementById("apagar")
 const borrar = document.getElementById("borrar")
 const total = document.getElementById("total")
 
+
 //variables
 
 const precio = 200
@@ -14,7 +15,9 @@ const precio = 200
 const categories = {
   a: { porcentaje: 80, value: '0' },
   b: { porcentaje: 50, value: '1' },
-  c: { porcentaje: 15, value: '2' }
+  c: { porcentaje: 15, value: '2' },
+  none: { porcentaje: 0, value: '3' }
+
 }
 
 let cantidad = null
@@ -38,10 +41,12 @@ const preciofinal = () => {
 
 
   const borrarcampos = (e) => {
+  
     for (let input of inputs)
     input.value="";
     select.value="none"
     montoAPagar.innerText = "Total a Pagar: $"
+    
   }
 
 
@@ -57,7 +62,7 @@ const preciofinal = () => {
       apellido: apellido.value !=="",
       correo: correo.value.includes("@"),
       cantidad: cantidad.value >0,
-      category: category.value !=="none"
+      // category: category.value !=="none"
     }
     const values = Object.values(verificacion)
     const submit = values.every(value => value)
@@ -89,12 +94,15 @@ const preciofinal = () => {
 
   const setCategory = (e) => {
     const option = e.target.value
-    if (option === 'none') {
-      borrarcampos()
-      return
-       }
+    // if (option === 'none') {
+    //   borrarcampos()
+    //   return
+    //    }
 
     category = option
+    preciofinal()
+ 
+  }
 
     //prueba
     // const index = categories[category].value
@@ -117,9 +125,7 @@ const preciofinal = () => {
   
     //prueba
 
-    preciofinal()
- 
-  }
+   
  
 
   document.getElementById("category").addEventListener("change", setCategory)
@@ -133,6 +139,8 @@ const preciofinal = () => {
     totalAPagar = null
     return}
     cantidad = value
+
+    preciofinal() //prueba para ver si funciona
 
     
   }
