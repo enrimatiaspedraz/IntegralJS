@@ -1,3 +1,70 @@
+
+
+let selected = null
+
+//CARDS COLOR
+
+const cards = document.getElementsByClassName("card-body")
+const cardsContainer = document.getElementsByClassName("card")
+
+
+const colors = ['bg-primary', 'bg-danger', 'bg-success']
+const transparent = 'bg-transparent'
+
+const changeColor = (container, index, revert=false) => {
+  const i = Number(index) 
+  revert
+   ?container.classList.replace(colors[i], transparent)  
+   :container.classList.replace(transparent, colors[i])
+} 
+
+const cardEnter = (e) => {
+  const {index} = e.target.dataset
+  changeColor(e.target, index)
+  
+}
+
+const cardLeave = (e) => {
+  const {index} = e.target.dataset
+  changeColor(e.target, index, true )
+}
+
+const cardClick = (e) => {
+selected = e.currentTarget.dataset.index 
+eventsAssignmentsAll()
+} 
+
+const eventCleaner = (container) => {
+  container.removeEventListener('mouseenter', cardEnter)
+  container.removeEventListener('mouseleave', cardLeave)
+  container.removeEventListener('click', cardClick)
+
+}
+
+const eventAssignments = (container) => {
+  container.addEventListener('mouseenter', cardEnter)
+  container.addEventListener('mouseleave', cardLeave)
+  container.addEventListener('click', cardClick)
+}
+ 
+const eventsAssignmentsAll = () => {
+ for (let container of cardsContainer) {
+  
+eventCleaner(container)
+
+  const {index} = container.dataset
+
+if (index !== selected){ 
+  
+  eventAssignments(container)
+  changeColor(container, index, true)
+ }
+}
+}
+eventsAssignmentsAll()
+
+//FIN CARD COLOR
+
 const form = document.formulario
 const inputs = form.getElementsByTagName("input")
 const select = form.getElementsByTagName("select")[0]
@@ -16,13 +83,15 @@ const categories = {
   a: { porcentaje: 80, value: '0' },
   b: { porcentaje: 50, value: '1' },
   c: { porcentaje: 15, value: '2' },
-  none: { porcentaje: 0, value: '3' }
+  // none: { porcentaje: 0, value: '3' }
 
 }
 
 let cantidad = null
 let category = null
 let totalAPagar = null
+
+
 
 
 const textoTotal = "Total a Pagar: $ "
@@ -46,6 +115,9 @@ const preciofinal = () => {
     input.value="";
     select.value="none"
     montoAPagar.innerText = "Total a Pagar: $"
+    selected = null
+    eventsAssignmentsAll()
+    
     
   }
 
@@ -91,42 +163,38 @@ const preciofinal = () => {
   // FUNCIONES PARA BOTONES
 
   
+const resetCategories = () =>{
+  selected = null
+  eventsAssignmentsAll()
+  
+  montoAPagar.innerText = "Total a Pagar:"
+
+
+
+}
 
   const setCategory = (e) => {
     const option = e.target.value
-    // if (option === 'none') {
-    //   borrarcampos()
-    //   return
-    //    }
-
+    if(option === "none"){
+    resetCategories()
+    return
+    }
+  
     category = option
+   
+
+    const index = categories[category].value
+    const container = cardsContainer[index]
+
+    selected = index
+    changeColor(container, index)
+
+    eventsAssignmentsAll()
     preciofinal()
  
   }
 
-    //prueba
-    // const index = categories[category].value
-    // const CardsContainer = document.querySelectorAll('.btn.card')
-    // const container = CardsContainer[index]
-    // selected = index
-    // const colors = ['bg-primary', 'bg-danger', 'bg-success']
-    // const transparent = 'bg-transparent'
-  
-    // const changeColor = (container, index) => {
-    //   const i = Number(index)}
-    //   container.classList.replace(transparent, colors[i])
 
-    
-   
-    
-    
-    // changeColor(container, index)
-    // eventsAssignmentsAll() 
-  
-    //prueba
-
-   
- 
 
   document.getElementById("category").addEventListener("change", setCategory)
 
@@ -165,44 +233,10 @@ const preciofinal = () => {
 
 
 
-//CAJA1
-let cambiocolor = document.getElementById("paraprueba")
 
-cambiocolor.addEventListener("mouseover" , function() {
-  this.style.backgroundColor = "#d9f3fc";
-})
 
-let cambiocolorout = document.getElementById("paraprueba")
 
-cambiocolorout.addEventListener("mouseout" , function() {
-  this.style.backgroundColor = "white";
-})
 
-//CAJA2
 
-let cambiocolor2 = document.getElementById("paraprueba2")
 
-cambiocolor2.addEventListener("mouseover" , function() {
-  this.style.backgroundColor = "#aaacb1";
-})
-
-let cambiocolorout2 = document.getElementById("paraprueba2")
-
-cambiocolorout2.addEventListener("mouseout" , function() {
-  this.style.backgroundColor = "white";
-})
-
-//CAJA3
-
-let cambiocolor3 = document.getElementById("paraprueba3")
-
-cambiocolor3.addEventListener("mouseover" , function() {
-  this.style.backgroundColor = "#d6b003";
-})
-
-let cambiocolorout3 = document.getElementById("paraprueba3")
-
-cambiocolorout3.addEventListener("mouseout" , function() {
-  this.style.backgroundColor = "white";
-})
 
