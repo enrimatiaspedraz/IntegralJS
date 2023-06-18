@@ -8,7 +8,7 @@ const cards = document.getElementsByClassName("card-body")
 const cardsContainer = document.getElementsByClassName("card")
 
 
-const colors = ['bg-primary', 'bg-danger', 'bg-success']
+const colors = ['bg-primary', 'bg-secondary', 'bg-warning']
 const transparent = 'bg-transparent'
 
 const changeColor = (container, index, revert=false) => {
@@ -65,56 +65,56 @@ eventsAssignmentsAll()
 
 //FIN CARD COLOR
 
-const form = document.formulario
+const form = document.formulary
 const inputs = form.getElementsByTagName("input")
 const select = form.getElementsByTagName("select")[0]
 
 
-const montoAPagar = document.getElementById("apagar")
-const borrar = document.getElementById("borrar")
+const toPay = document.getElementById("totalpay")
+const clear = document.getElementById("clear")
 const total = document.getElementById("total")
 
 
 //variables
 
-const precio = 200
+const price = 200
 
 const categories = {
-  a: { porcentaje: 80, value: '0' },
-  b: { porcentaje: 50, value: '1' },
-  c: { porcentaje: 15, value: '2' },
-  // none: { porcentaje: 0, value: '3' }
-
+  a: { percent: 80, value: '0' },
+  b: { percent: 50, value: '1' },
+  c: { percent: 15, value: '2' },
+  none: { percent: 100, value: '3' },
 }
 
-let cantidad = null
+let totalQuantity = null
 let category = null
-let totalAPagar = null
+let totalToPay = null
 
 
 
 
-const textoTotal = "Total a Pagar: $ "
+const textTotal = "Total a Pagar: $ "
 
 
  
-const preciofinal = () => {
+const finalPrice = () => {
 
-  if (!cantidad || !precio) return
+  if (!totalQuantity || !price) return
 
-  const APagar = precio * cantidad
-  const descuento = (APagar/100) * categories[category].porcentaje
-  totalAPagar = APagar - descuento
-  montoAPagar.innerText = textoTotal + totalAPagar  
+  const finalPrice = price * totalQuantity
+  const discount = (finalPrice/100) * categories[category].percent
+  totalToPay = finalPrice - discount
+  toPay.innerText = textTotal + totalToPay  
+  
 }
 
 
-  const borrarcampos = (e) => {
+  const deleteAll = (e) => {
   
     for (let input of inputs)
     input.value="";
     select.value="none"
-    montoAPagar.innerText = "Total a Pagar: $"
+    toPay.innerText = "Total a Pagar: $"
     selected = null
     eventsAssignmentsAll()
     
@@ -122,11 +122,11 @@ const preciofinal = () => {
   }
 
 
-  borrar.addEventListener("click", borrarcampos)
+  clear.addEventListener("click", deleteAll)
 
 
-  // esto hay que cambiarlo
-  const enviar = (e) => {
+  
+  const send = (e) => {
     e.preventDefault()
     const { nombre, apellido, correo, cantidad, category } = form
     const verificacion = {
@@ -134,7 +134,7 @@ const preciofinal = () => {
       apellido: apellido.value !=="",
       correo: correo.value.includes("@"),
       cantidad: cantidad.value >0,
-      // category: category.value !=="none"
+      category: category.value !=="none"
     }
     const values = Object.values(verificacion)
     const submit = values.every(value => value)
@@ -151,13 +151,10 @@ const preciofinal = () => {
               text: ("Existen campos incompletos"),
              
             }) 
-            
-            
-
-         
+                                
   }
 
-  total.addEventListener("click", enviar)
+  total.addEventListener("click", send)
 
 
   // FUNCIONES PARA BOTONES
@@ -166,11 +163,9 @@ const preciofinal = () => {
 const resetCategories = () =>{
   selected = null
   eventsAssignmentsAll()
+  toPay.innerText = "Total a Pagar: $"
   
-  montoAPagar.innerText = "Total a Pagar:"
-
-
-
+ 
 }
 
   const setCategory = (e) => {
@@ -190,7 +185,7 @@ const resetCategories = () =>{
     changeColor(container, index)
 
     eventsAssignmentsAll()
-    preciofinal()
+    finalPrice()
  
   }
 
@@ -204,16 +199,16 @@ const resetCategories = () =>{
     const value = e.target.value
     if (value < 0){
     e.target.value = 0
-    totalAPagar = null
+    totalToPay = null
     return}
-    cantidad = value
+    totalQuantity = value
 
-    preciofinal() //prueba para ver si funciona
+    finalPrice() //prueba para ver si funciona
 
     
   }
 
-  document.getElementById("cantidad").addEventListener("change", setCantidad)
+  document.getElementById("quantity").addEventListener("change", setCantidad)
 
   //EN PRUEBA
 
