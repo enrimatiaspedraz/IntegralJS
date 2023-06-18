@@ -27,11 +27,14 @@ const cardEnter = (e) => {
 const cardLeave = (e) => {
   const {index} = e.target.dataset
   changeColor(e.target, index, true )
+ 
 }
 
 const cardClick = (e) => {
 selected = e.currentTarget.dataset.index 
+matchCategory(selected)
 eventsAssignmentsAll()
+
 } 
 
 const eventCleaner = (container) => {
@@ -62,6 +65,26 @@ if (index !== selected){
 }
 }
 eventsAssignmentsAll()
+
+const matchCategory = (selection) => {
+    switch(selection){
+      case "0":
+        form.category.value = "a"
+       
+        break
+      case "1":
+        form.category.value = "b"
+        
+        break  
+      case "2":
+        form.category.value = "c"
+      
+        break
+      default:
+           throw new Error ("Error de función")
+              
+    }
+  }
 
 //FIN CARD COLOR
 
@@ -210,21 +233,12 @@ const resetCategories = () =>{
 
   document.getElementById("quantity").addEventListener("change", setCantidad)
 
-  //EN PRUEBA
 
-  // const colorcajas = (selection) => {
-  //   switch(selection){
-  //     case "0":
-  //       form.category.value = "a"
-  //       break
-  //     case "1":
-  //         form.category.value = "b"
-  //         break  
-  //     case "2":
-  //           form.category.value = "c"
-  //           break
-  //   }
-  // }
+
+  
+
+
+
 
 
 
